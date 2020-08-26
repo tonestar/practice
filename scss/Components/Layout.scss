@@ -1,0 +1,21 @@
+@use '../Variables' as *;
+
+.Layout {
+  display: grid;
+  grid-template-rows: 80px 80px 1fr;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    'header '
+    'sidebar'
+    'content'
+  ;
+
+  @media screen and (min-width:768px) {
+    grid-template-rows: 80px 1fr;
+    grid-template-columns: 2fr 1fr;
+    grid-template-areas:
+      'header header'
+      'content sidebar'
+    ;
+  }
+}

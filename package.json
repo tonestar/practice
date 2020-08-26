@@ -1,0 +1,24 @@
+{
+  "name": "practice",
+  "version": "1.0.0",
+  "description": "test practice",
+  "main": "index.html",
+  "dependencies": {
+    "sass": "^1.26.10"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "scss": "sass --watch scss/main.scss css/main.css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tonestar/practice.git"
+  },
+  "author": "Tony Watson",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tonestar/practice/issues"
+  },
+  "homepage": "https://github.com/tonestar/practice#readme"
+}

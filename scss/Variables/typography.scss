@@ -1,0 +1,216 @@
+@use './colors.scss' as * ;
+
+// Note: I'm using some of my favourite little things just to get the nice squishiness happening
+
+
+// ///////////////////////////////////
+// //      Global Font settings     //
+// ///////////////////////////////////
+
+@font-face {
+  font-family: "JosefinSans Light";
+  font-weight: normal;
+  font-style: normal;
+  src:
+    local("JosefinSans Light"),
+    local("josefinsans-light"),
+    url("../../../../assets/fonts/JosefinSans-Light.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "JosefinSans Bold";
+  font-weight: normal;
+  font-style: normal;
+  src:
+    local("JosefinSans Bold"),
+    local("josefinsans-bold"),
+    url("../../../../assets/fonts/JosefinSans-Bold.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "JosefinSans SemiBold";
+  font-weight: normal;
+  font-style: normal;
+  src:
+    local("JosefinSans SemiBold"),
+    local("josefinsans-semibold"),
+    url("../../../../assets/fonts/JosefinSans-SemiBold.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "JosefinSans Regular";
+  font-weight: normal;
+  font-style: normal;
+  src:
+    local("JosefinSans Regular"),
+    local("josefinsans-regular"),
+    url("../../../../assets/fonts/JosefinSans-Regular.woff2") format("woff2");
+}
+
+// ==========================================
+// Fluid Type
+// ==========================================
+// see: https://css-tricks.com/books/fundamental-css-tactics/scale-typography-screen-size/
+// The idea is that you set the bounds/breakpoints of when the values scale
+//
+// ==========================================
+
+@function strip-unit($value) {
+  @return $value / ($value * 0 + 1);
+}
+
+@mixin fluidType--size($min-size, $max-size, $min-breakpoint: 1px, $max-breakpoint) {
+  $u1: unit($min-breakpoint);
+  $u2: unit($max-breakpoint);
+  $u3: unit($min-size);
+  $u4: unit($max-size);
+
+  @if $u1 == $u2 and $u1 == $u3 and $u1 == $u4 {
+    & {
+
+      font-size: $min-size;
+      @media screen and (min-width: $min-breakpoint) {
+        font-size: calc(#{$min-size} + #{strip-unit($max-size - $min-size)} * ((100vw - #{$min-breakpoint}) / #{strip-unit($max-breakpoint - $min-breakpoint)}));
+      }
+
+      @media screen and (min-width: $max-breakpoint) {
+        font-size: $max-size;
+      }
+    }
+  }
+}
+
+@mixin fluidType--lineHeight($min-size: 1px, $max-size, $min-breakpoint: 1px, $max-breakpoint) {
+  $u1: unit($min-size);
+  $u2: unit($max-size);
+  $u3: unit($min-breakpoint);
+  $u4: unit($max-breakpoint);
+
+  @if $u1 == $u2 and $u1 == $u3 and $u1 == $u4 {
+    & {
+
+      line-height: $min-size;
+      @media screen and (min-width: $min-breakpoint) {
+        line-height: calc(#{$min-size} + #{strip-unit($max-size - $min-size)} * ((100vw - #{$min-breakpoint}) / #{strip-unit($max-breakpoint - $min-breakpoint)}));
+      }
+
+      @media screen and (min-width: $max-breakpoint) {
+        line-height: $max-size;
+      }
+    }
+  }
+}
+
+// =====================
+// Headings
+// =====================
+
+$base-line-height: 1.5;
+$base-font-size: 16px;
+$base-font--regular: "JosefinSans Regular";
+$base-font--light: "JosefinSans Light";
+$base-font--header: "JosefinSans SemiBold";
+
+// =====================
+// Font Mixins
+// =====================
+// These mixins are just to bundle up code snippets – instead of extending, you can use these to add
+// common styles without having a relationship created. Also, you can use different Mixins at different breakpoints.
+//
+// Feel free to adjust/rename as required. We will use these to setup our generic type styles in the next section.
+
+@mixin font-light {
+  font-family: $base-font--light, system-ui, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+}
+
+@mixin font-regular {
+  font-family: $base-font--regular, system-ui, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+}
+
+@mixin font-header {
+  font-family: $base-font--header, system-ui, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+}
+
+h1 {
+  @include font-header();
+  @include fluidType--size(32px, 48px, 200px, 1200px);
+  @include fluidType--lineHeight(40px, 56px, 200px, 1200px);
+  margin-top: 0px;
+  margin-bottom: 24px;
+}
+
+h2 {
+ @include font-header();
+  @include fluidType--size(24px, 32px, 200px, 1200px);
+  @include fluidType--lineHeight(32px, 40px, 200px, 1200px);
+  margin-top: 0px;
+  margin-bottom: 24px;
+}
+
+h3, h4, h5 {
+ @include font-header();
+  @include fluidType--size(20px, 24px, 200px, 1200px);
+  @include fluidType--lineHeight(28px, 32px, 200px, 1200px);
+  margin-top: 0px;
+  margin-bottom: 24px;
+}
+
+// =====================
+// Body
+// =====================
+
+p {
+  @include font-light();
+  @include fluidType--size(16px, 20px, 200px, 1200px);
+  @include fluidType--lineHeight(24px, 28px, 200px, 1200px);
+  margin-top: 0px;
+  margin-bottom: 24px;
+}
+
+// Remove from flow, but available to screen readers ============
+.ScreenReadersOnly {
+  border: 0 !important;
+  clip: rect(1px, 1px, 1px, 1px) !important;
+  height: 1px !important;
+  overflow: hidden !important;
+  padding: 0 !important;
+  position: absolute !important;
+  width: 1px !important;
+}
+// Bit of base set up
+
+html {
+  font-size: 16px;
+  line-height: 20px;
+  color: black;
+  // Better Font Rendering
+  font-feature-settings: "kern" 1;
+  font-kerning: normal;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  @include font-light();
+}
+
+a {
+  color: $maya-blue;
+  text-decoration: underline;
+
+}
+
+em, i { font-style: italic; }
+strong,b { font-style: bold }
+
+ul { list-style-type: disc; }
+ol { list-style: decimal; }
+
+sub,
+sup {
+  line-height: 0;
+}

@@ -1,0 +1,41 @@
+@use '../Variables' as *;
+
+.Content {
+  grid-area: content;
+  padding: 72px 24px;
+
+  @media screen and (min-width: 768px) {
+    padding: 72px;
+  }
+
+  h1, h2, h3 {
+    display: inline-block;
+    position: relative;
+
+    &:before {
+      content: "";
+      position: absolute;
+      left: 8px;
+      right: 0;
+      height: 12px;
+      transform: skewX(-45deg);
+      bottom: -14px;
+    }
+  }
+
+  h1 {
+    margin-bottom: 48px;
+
+    &:before {
+      background: $light-green;
+    }
+  }
+
+  h2:before {
+    background: $laser-lemon;
+  }
+
+  h3:before {
+    background: $maya-blue;
+  }
+}

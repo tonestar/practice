@@ -1,0 +1,35 @@
+@use '../Variables' as *;
+
+.Sidebar {
+  grid-area: sidebar;
+  position: relative;
+
+  &:before {
+    content: "";
+    position: absolute;
+    left: 24px;
+    right: 24px;
+    height: 12px;
+    transform: skewX(-45deg);
+    background: $light-green;
+    bottom: -8px;
+
+    @media screen and (min-width:768px) {
+      top: 48px;
+      bottom: 48px;
+      width: 12px;
+      height: auto;
+      transform: skewY(45deg);
+    }
+  }
+
+  &-content {
+    position: sticky;
+    top: 81px;
+    padding: 24px;
+
+    @media screen and (min-width:768px) {
+      padding: 72px;
+    }
+  }
+}

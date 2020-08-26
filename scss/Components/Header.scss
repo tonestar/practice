@@ -1,0 +1,73 @@
+@use '../Variables' as *;
+
+.Header {
+  grid-area: header;
+  background-color: $maya-blue;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  padding: 0 24px;
+  z-index: 1;
+  box-shadow: 0 0px 20px rgba($maya-blue, 0.6);
+
+  @media screen and (min-width: 768px) {
+    padding: 0 72px;
+  }
+
+  &-title {
+    margin: 0;
+    color: $white;
+    }
+
+  &-search {
+    display: flex;
+    // Doing the grandiose skew thing
+    transform: skewX(-45deg);
+    background: $white;
+    padding: 0 24px;
+
+
+    &-input {
+      @include font-regular;
+      border: none;
+      padding: 0 24px 0 16px;
+      min-height: 40px;
+      // Undoing the grandiose skew thing so type isn't skewed
+      transform: skewX(45deg);
+      max-width: 220px;
+
+      &::-webkit-input-placeholder { color: inherit; }
+      &::-moz-placeholder { color: inherit; }
+      &:-ms-input-placeholder { color: inherit; }
+      &:-moz-placeholder { color: inherit; }
+
+      &:focus,
+      &:active {
+        outline: none;
+      }
+
+      @media screen and (min-width: 768px) {
+        max-width: 100%;
+      }
+    }
+
+    &-title {
+      margin: 0;
+    }
+
+    &-button {
+      width: 25px;
+      height: 25px;
+      background: url(../assets/images/search.svg) no-repeat 50% 50%;
+      top: 50%;
+      transform: translateY(-50%) skewX(45deg);
+      right: 12px;
+      border: none;
+      position: absolute;
+      background-size: contain;
+      cursor: pointer;
+    }
+  }
+}
